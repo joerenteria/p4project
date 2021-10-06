@@ -6,6 +6,7 @@ import { Box, Button } from "../styles";
 
 function RecipeList({user}) {
   const [recipes, setRecipes] = useState([]);
+  
 
   useEffect(() => {
     fetch("/recipes")
@@ -19,6 +20,19 @@ function RecipeList({user}) {
     }).then(console.log("delete"));
   }
 
+  function handleUpdate(id) {
+    fetch(`/recipes/:${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ minutes_to_complete: 8 }),
+    })
+      .then((r) => r.json())
+      .then(console.log("update"));
+
+  }
+
 
 
   return (
@@ -29,12 +43,13 @@ function RecipeList({user}) {
             <Box>
               <h2>{recipe.title}</h2>
               <p>
-                <em>Rating: {recipe.minutesToComplete} minutes</em>
+                <em>Rating: {recipe.minutes_to_complete} </em>
                 &nbsp;·&nbsp;
                 <cite>By {recipe.user.username}</cite>
               </p>
               <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
               <Button onClick={() => handleDelete(recipe.id)}>Delete</Button>
+              <Button onClick={() => handleUpdate(recipe.id)}>Update</Button>
             </Box>
           </Recipe>
         ))

@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
         render json: Recipe.all
     end
     def show
-        recipe = current_user.recipes.find_by(id: params[:id])
+        recipe = Recipe.find_by(id: params[:id])
         render json: recipe
     end
     def create
@@ -14,9 +14,7 @@ class RecipesController < ApplicationController
     end
     def destroy
         recipe = @current_user.recipes.find_by(id: params[:id])
-        #byebug
         if recipe         
-        #byebug
         recipe.destroy
         render json: recipe
         #head :no_content
@@ -24,6 +22,32 @@ class RecipesController < ApplicationController
         render json: {error: "Not Authorized"}
         end
     end
+
+    def update
+        recipe = @current_user.recipes.update(recipe_params)
+        if recipe
+            recipe.save
+        else
+            render json: {error: "Ouch"}
+        end
+    end
+
+
+
+    # def update
+    #     recipe = @current_user.recipes.find_by(id: params[:id])
+    #     if recipe
+    #         recipe.update(recipe_params)
+    #     else
+    #         render json: {error: "Ouch"}
+    #     end
+    # end
+
+    # def update
+    #     recipe = @current_user.recipes.find_by(id: params[:id])
+    #    recipe.minutes_to_complete=(recipe.minutes_to_complete + 3)
+    # end
+
     private
     def recipe_params
         params.permit(:title,:instructions,:minutes_to_complete)
