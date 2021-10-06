@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { Box, Button } from "../styles";
+
 
 function RecipeList({user}) {
   const [recipes, setRecipes] = useState([]);
@@ -36,11 +35,11 @@ function RecipeList({user}) {
 
 
   return (
-    <Wrapper>
+    <div>
       {recipes.length > 0 ? (
         recipes.map((recipe) => (
-          <Recipe key={recipe.id}>
-            <Box>
+          <div key={recipe.id}>
+            <div>
               <h2>{recipe.title}</h2>
               <p>
                 <em>Rating: {recipe.minutes_to_complete} </em>
@@ -48,30 +47,21 @@ function RecipeList({user}) {
                 <cite>By {recipe.user.username}</cite>
               </p>
               <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
-              <Button onClick={() => handleDelete(recipe.id)}>Delete</Button>
-              <Button onClick={() => handleUpdate(recipe.id)}>Update</Button>
-            </Box>
-          </Recipe>
+              <button onClick={() => handleDelete(recipe.id)}>Delete</button>
+              <button onClick={() => handleUpdate(recipe.id)}>Update</button>
+            </div>
+          </div>
         ))
       ) : (
         <>
           <h2>None Found</h2>
-          <Button as={Link} to="/new">
+          <button as={Link} to="/new">
             Make new
-          </Button>
+          </button>
         </>
       )}
-    </Wrapper>
+    </div>
   );
 }
-
-const Wrapper = styled.section`
-  max-width: 800px;
-  margin: 40px auto;
-`;
-
-const Recipe = styled.article`
-  margin-bottom: 24px;
-`;
 
 export default RecipeList;

@@ -2,23 +2,23 @@ import { useState } from "react";
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
-import { Button } from "../styles";
+
 
 function Login({ onLogin }) {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
     <Wrapper>
-      <Logo>Reciplease</Logo>
+Parker Keeper
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />
           <Divider />
           <p>
             Don't have an account? &nbsp;
-            <Button color="secondary" onClick={() => setShowLogin(false)}>
+            <button color="secondary" onClick={() => setShowLogin(false)}>
               Sign Up
-            </Button>
+            </button>
           </p>
         </>
       ) : (
@@ -26,10 +26,10 @@ function Login({ onLogin }) {
           <SignUpForm onLogin={onLogin} />
           <Divider />
           <p>
-            Already have an account? &nbsp;
-            <Button color="secondary" onClick={() => setShowLogin(true)}>
+            Have an account? &nbsp;
+            <button color="secondary" onClick={() => setShowLogin(true)}>
               Log In
-            </Button>
+            </button>
           </p>
         </>
       )}

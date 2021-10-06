@@ -73,9 +73,9 @@ function NewRecipe({ user }) {
             />
           </FormField>
           <FormField>
-            <Button color="primary" type="submit">
+            <button color="primary" type="submit">
               {isLoading ? "Loading..." : "Submit Entry"}
-            </Button>
+            </button>
           </FormField>
           <FormField>
             {errors.map((err) => (
